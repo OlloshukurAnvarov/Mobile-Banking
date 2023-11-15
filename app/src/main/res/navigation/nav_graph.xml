@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.leaf.mobilebanking.ui.SplashFragment"
+        android:name="com.leaf.mobilebanking.ui.fragment.SplashFragment"
         android:label="SplashFragment"
         tools:layout="@layout/fragment_splash">
         <action
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.leaf.mobilebanking.ui.SignInFragment"
+        android:name="com.leaf.mobilebanking.ui.fragment.signInFragment.SignInFragment"
         android:label="SignInFragment"
         tools:layout="@layout/fragment_sign_in" />
 

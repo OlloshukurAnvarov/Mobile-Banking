@@ -1,4 +1,4 @@
-package com.leaf.mobilebanking.ui
+package com.leaf.mobilebanking.ui.fragment
 
 import android.os.Build
 import android.os.Bundle
@@ -37,5 +37,4 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         }.start()
 
     }
-
 }

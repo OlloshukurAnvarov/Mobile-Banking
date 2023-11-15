@@ -1,4 +1,4 @@
-package com.leaf.mobilebanking.customview
+package com.leaf.mobilebanking.ui.customview
 
 import android.content.Context
 import android.util.AttributeSet

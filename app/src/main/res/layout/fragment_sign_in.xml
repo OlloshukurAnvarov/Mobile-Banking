@@ -56,7 +56,7 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <com.leaf.mobilebanking.customview.Button
+        <com.leaf.mobilebanking.ui.customview.Button
             android:id="@+id/continue_button"
             style="@style/tall_button_style"
             app:text="@string/continue_text" />
@@ -121,7 +121,7 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <com.leaf.mobilebanking.customview.Button
+        <com.leaf.mobilebanking.ui.customview.Button
             android:id="@+id/enter_button"
             style="@style/tall_button_style"
             app:text="@string/enter" />
