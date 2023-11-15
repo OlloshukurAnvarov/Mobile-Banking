@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Mobile Banking</string>
+    <string name="sign_in">Sign In</string>
+    <string name="phone_number">Phone number</string>
+    <string name="password">Password</string>
+    <string name="enter">Enter</string>
+    <string name="cookies">The fishtext website will help a designer, layout designer, or webmaster to generate several paragraphs of more or less meaningful fish text in Russian, and a novice speaker to hone his public speaking skills at home. When creating the generator, we used the well-known universal code of speeches. The text is generated randomly in paragraphs from two to ten sentences per paragraph, which allows you to make the text more attractive and lively for visual and auditory perception</string>
+    <string name="service_privacy_policy">\tService privacy policy</string>
+    <string name="i_agree">\tI agree with all terms and conditions.</string>
+    <string name="continue_text">Continue</string>
+    <string name="_998_00_000_00_00">+998 00 000 00 00</string>
+    <string name="forgot_password">Forgot password!</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign up</string>
+</resources>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/abel_text_style"
+        android:text="@string/sign_in" />
+
+    <LinearLayout
+        android:id="@+id/cookies_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/splash_icon_black" />
+
+        <TextView
+            style="@style/abel_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@string/service_privacy_policy" />
+
+        <TextView
+            style="@style/abel_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textSize="16sp"
+            android:text="@string/cookies" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/checkbox"
+            style="@style/abel_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="2dp"
+            android:text="@string/i_agree"
+            android:textSize="16sp"
+            android:textColor="@color/primary_blue"
+            app:buttonIconTint="@color/white"
+            app:buttonTint="@color/primary_blue" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.leaf.mobilebanking.customview.Button
+            android:id="@+id/continue_button"
+            style="@style/tall_button_style"
+            app:text="@string/continue_text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/below_input_text_style"
+            android:layout_marginTop="70dp"
+            android:text="@string/phone_number" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/text_input_layout_style"
+            android:hint="@string/_998_00_000_00_00"
+            app:prefixText="+998"
+            app:startIconDrawable="@drawable/uzbekistan_map_flag">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_number"
+                style="@style/phone_edittext_style" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/below_input_text_style"
+            android:text="@string/password" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/text_input_layout_style"
+            app:endIconDrawable="@drawable/eye_password"
+            app:endIconMode="password_toggle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                style="@style/password_edittext_style" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/error_message"
+            android:visibility="gone"
+            style="@style/below_input_text_style"
+            android:textColor="@color/error_red"
+            android:layout_marginBottom="8dp"
+            android:textStyle="normal"
+            tools:text="Error message." />
+
+        <TextView
+            android:id="@+id/forgot_pass"
+            style="@style/below_input_text_style"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:textColor="@color/primary_blue"
+            android:text="@string/forgot_password" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.leaf.mobilebanking.customview.Button
+            android:id="@+id/enter_button"
+            style="@style/tall_button_style"
+            app:text="@string/enter" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="4dp">
+
+            <TextView
+                style="@style/below_input_text_style"
+                android:layout_marginVertical="2dp"
+                android:textSize="12sp"
+                android:text="@string/don_t_have_an_account" />
+
+            <TextView
+                android:id="@+id/sign_up_ask"
+                android:layout_marginVertical="2dp"
+                style="@style/below_input_text_style"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:textColor="@color/primary_blue"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginStart="4dp"
+                android:text="@string/sign_up" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
