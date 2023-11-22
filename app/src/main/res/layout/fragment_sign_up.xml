@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:animateLayoutChanges="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -47,23 +48,6 @@
 
     <TextView
         style="@style/below_input_text_style"
-        android:text="@string/date_of_birth" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/text_input_layout_style">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/date_of_birth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="12/25/2022"
-            android:inputType="date"
-            android:imeOptions="actionNext"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        style="@style/below_input_text_style"
         android:text="@string/phone_number" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -93,6 +77,15 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/error_message"
+        android:visibility="gone"
+        style="@style/below_input_text_style"
+        android:textColor="@color/error_red"
+        android:layout_marginBottom="8dp"
+        android:textStyle="normal"
+        tools:text="Error message." />
+
     <Space
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -101,6 +94,7 @@
     <com.leaf.mobilebanking.ui.customview.Button
         android:id="@+id/sign_up"
         style="@style/tall_button_style"
+        app:isEnabled="true"
         app:text="@string/sign_up"/>
 
     <LinearLayout

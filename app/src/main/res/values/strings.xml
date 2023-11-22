@@ -16,4 +16,9 @@
     <string name="last_name">Last name</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="have_an_account">Have an account?</string>
+    <string name="minimum_length_of_firstname_is_3">Minimum length of firstname is 3</string>
+    <string name="minimum_length_of_lastname_is_3">Minimum length of lastname is 3</string>
+    <string name="minimum_length_of_password_is_4">Minimum length of password is 4</string>
+    <string name="please_connect_to_internet">Please connect to internet</string>
+    <string name="something_wrong_please_try_again_later">Something wrong\nplease try again later…</string>
 </resources>

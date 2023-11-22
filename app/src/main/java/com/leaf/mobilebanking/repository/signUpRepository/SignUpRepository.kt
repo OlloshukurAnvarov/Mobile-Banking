@@ -4,5 +4,5 @@ import com.leaf.mobilebanking.data.model.SignUpBody
 import com.leaf.mobilebanking.data.model.Verify
 
 interface SignUpRepository {
-    suspend fun signIn(signUpBody: SignUpBody): Verify
+    suspend fun signUp(signUpBody: SignUpBody): Verify
 }
