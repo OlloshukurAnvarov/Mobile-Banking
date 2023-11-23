@@ -83,6 +83,7 @@
         style="@style/below_input_text_style"
         android:textColor="@color/error_red"
         android:layout_marginBottom="8dp"
+        android:textSize="12sp"
         android:textStyle="normal"
         tools:text="Error message." />
 

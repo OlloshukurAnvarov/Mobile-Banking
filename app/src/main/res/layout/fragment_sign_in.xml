@@ -106,6 +106,7 @@
             android:visibility="gone"
             style="@style/below_input_text_style"
             android:textColor="@color/error_red"
+            android:textSize="12sp"
             android:layout_marginBottom="8dp"
             android:textStyle="normal"
             tools:text="Error message." />
