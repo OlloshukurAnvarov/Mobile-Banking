@@ -37,7 +37,8 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
                 val phone = phoneNumber.text.toString().toPhone()
                 val password = password.text.toString().trim()
 
-                viewModel.signUp(firstName, lastName, password, phone)
+                //viewModel.signUp(firstName, lastName, password, phone)
+                navController.navigate(R.id.action_signUpFragment_to_verifyFragment)
 
             }
 

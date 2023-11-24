@@ -63,4 +63,11 @@
 
     </style>
 
+    <style name="arrow_back_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:src">@drawable/arrow_back</item>
+    </style>
+
 </resources>

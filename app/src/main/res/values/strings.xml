@@ -22,4 +22,8 @@
     <string name="please_connect_to_internet">Please connect to internet</string>
     <string name="something_wrong_please_try_again_later">Something wrong\nplease try again later…</string>
     <string name="invalid_phone_number">Invalid phone number</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="code_sent_to_number">Code sent to number</string>
+    <string name="request_via">Request in</string>
+    <string name="confirm">Confirm</string>
 </resources>

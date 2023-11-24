@@ -21,16 +21,27 @@
         android:id="@+id/signInFragment"
         android:name="com.leaf.mobilebanking.ui.fragment.signInFragment.SignInFragment"
         android:label="SignInFragment"
-        tools:layout="@layout/fragment_sign_in" >
+        tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
+            app:destination="@id/signUpFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        tools:layout="@layout/fragment_sign_up"
         android:name="com.leaf.mobilebanking.ui.fragment.signUpFragment.SignUpFragment"
-        android:label="SignUpFragment" />
+        android:label="SignUpFragment"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_signUpFragment_to_verifyFragment"
+            app:destination="@id/verifyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyFragment"
+        android:name="com.leaf.mobilebanking.ui.fragment.verifyFragment.VerifyFragment"
+        android:label="VerifyFragment"
+        tools:layout="@layout/fragment_verify"/>
 
 
 </navigation>

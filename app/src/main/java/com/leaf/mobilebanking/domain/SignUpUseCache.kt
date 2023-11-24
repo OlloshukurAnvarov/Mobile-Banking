@@ -40,6 +40,7 @@ class SignUpUseCache @Inject constructor(private val repository: SignUpRepositor
             }
 
         } catch (e: Exception) {
+            e.printStackTrace()
             if (e is IOException) return State.NoNetwork
             if (e is HttpException) {
                 val errorBody = e.response()?.errorBody()
@@ -54,7 +55,6 @@ class SignUpUseCache @Inject constructor(private val repository: SignUpRepositor
                     }
                 }
             }
-            e.printStackTrace()
             return State.Error(-1)
         }
         return State.Success<Unit>()
