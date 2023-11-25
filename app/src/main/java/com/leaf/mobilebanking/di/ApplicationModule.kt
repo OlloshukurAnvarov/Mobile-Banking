@@ -8,6 +8,8 @@ import com.leaf.mobilebanking.repository.signInRepository.SignInRepository
 import com.leaf.mobilebanking.repository.signInRepository.SignInRepositoryImp
 import com.leaf.mobilebanking.repository.signUpRepository.SignUpRepository
 import com.leaf.mobilebanking.repository.signUpRepository.SignUpRepositoryImp
+import com.leaf.mobilebanking.repository.verifyRepository.VerifyRepository
+import com.leaf.mobilebanking.repository.verifyRepository.VerifyRepositoryImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,6 +50,10 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun provideSignUpRepo(authAPI: AuthAPI): SignUpRepository = SignUpRepositoryImp(authAPI)
+
+    @Provides
+    @Singleton
+    fun provideSignUpVerifyRepo(authAPI: AuthAPI): VerifyRepository = VerifyRepositoryImp(authAPI)
 
     @Provides
     @Singleton

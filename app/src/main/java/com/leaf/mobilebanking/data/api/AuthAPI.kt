@@ -14,4 +14,7 @@ interface AuthAPI {
     @POST("auth/sign-in")
     suspend fun signIn(@Body signInBody: SignInBody): Token
 
+    @POST("auth/sign-up/verify")
+    suspend fun signUpVerify(@Body verify: Verify): Token
+
 }

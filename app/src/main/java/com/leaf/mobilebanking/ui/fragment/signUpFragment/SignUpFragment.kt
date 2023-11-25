@@ -37,13 +37,12 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
                 val phone = phoneNumber.text.toString().toPhone()
                 val password = password.text.toString().trim()
 
-                //viewModel.signUp(firstName, lastName, password, phone)
-                navController.navigate(R.id.action_signUpFragment_to_verifyFragment)
+                viewModel.signUp(firstName, lastName, password, phone)
 
             }
 
             signInAsk.setOnClickListener {
-                navController.popBackStack()
+                navController.navigate(R.id.signInFragment)
             }
 
             formatter("[00] [000] [00] [00]", phoneNumber)
@@ -57,13 +56,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
                 launch {
                     viewModel.openVerifyFlow.collect {
 
-                        Snackbar.make(
-                            binding.signUp.rootView,
-                            "Verify ochiladi",
-                            Snackbar.LENGTH_SHORT
-                        )
-                            .setAnchorView(binding.signUp)
-                            .setAction("Action", null).show()
+                        navController.navigate(R.id.action_signUpFragment_to_verifyFragment)
 
                     }
                 }

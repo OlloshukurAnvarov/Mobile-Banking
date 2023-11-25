@@ -26,4 +26,6 @@
     <string name="code_sent_to_number">Code sent to number</string>
     <string name="request_via">Request in</string>
     <string name="confirm">Confirm</string>
+    <string name="incorrect_code">Please try again with a code error!</string>
+    <string name="send_again">Send again</string>
 </resources>
