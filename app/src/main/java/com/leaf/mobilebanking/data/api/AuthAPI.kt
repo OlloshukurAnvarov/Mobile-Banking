@@ -17,4 +17,7 @@ interface AuthAPI {
     @POST("auth/sign-up/verify")
     suspend fun signUpVerify(@Body verify: Verify): Token
 
+    @POST("auth/sign-up/resend")
+    suspend fun resendSMS(@Body token: Token): Verify
+
 }

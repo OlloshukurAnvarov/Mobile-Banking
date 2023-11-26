@@ -5,4 +5,7 @@ import com.leaf.mobilebanking.data.model.Verify
 
 interface VerifyRepository {
     suspend fun signUpVerify(verify: Verify): Token
+
+    suspend fun resendSMS(token: Token): Verify
+
 }

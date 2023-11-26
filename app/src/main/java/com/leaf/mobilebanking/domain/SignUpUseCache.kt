@@ -6,6 +6,7 @@ import com.leaf.mobilebanking.data.constants.State
 import com.leaf.mobilebanking.data.model.ErrorBody
 import com.leaf.mobilebanking.data.model.SignUpBody
 import com.leaf.mobilebanking.data.preferences.Settings
+import com.leaf.mobilebanking.extensions.toPhone
 import com.leaf.mobilebanking.repository.signUpRepository.SignUpRepository
 import retrofit2.HttpException
 import java.io.IOException
@@ -37,6 +38,7 @@ class SignUpUseCache @Inject constructor(private val repository: SignUpRepositor
             settings.apply {
                 temporaryToken = response.token
                 code = response.code
+                this.phone = phone
             }
 
         } catch (e: Exception) {

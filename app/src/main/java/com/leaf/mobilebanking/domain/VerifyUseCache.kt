@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder
 import com.leaf.mobilebanking.data.constants.ErrorCodes
 import com.leaf.mobilebanking.data.constants.State
 import com.leaf.mobilebanking.data.model.ErrorBody
+import com.leaf.mobilebanking.data.model.Token
 import com.leaf.mobilebanking.data.model.Verify
 import com.leaf.mobilebanking.data.model.VerifyErrorBody
 import com.leaf.mobilebanking.data.preferences.Settings
@@ -25,7 +26,7 @@ class VerifyUseCache @Inject constructor(private val repository: VerifyRepositor
 
             settings.accessToken = response.token
 
-        }catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
             if (e is IOException) return State.NoNetwork
             if (e is HttpException) {
@@ -45,6 +46,24 @@ class VerifyUseCache @Inject constructor(private val repository: VerifyRepositor
         }
 
         return State.Success<Unit>()
+
+    }
+
+    suspend fun resend() {
+        val tempToken = settings.temporaryToken
+        if (tempToken.isNullOrEmpty()) return
+        try {
+            val entity = Token(tempToken)
+            val response = repository.resendSMS(entity)
+
+            settings.apply {
+                temporaryToken = response.token
+                code = response.code
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
     }
 }

@@ -15,6 +15,9 @@ class SettingsImp @Inject constructor(@ApplicationContext context: Context) : Se
     override var code: String?
         get() = preferences.getString("code", null)
         set(value) = preferences.edit().putString("code", value).apply()
+    override var phone: String?
+        get() = preferences.getString("phone", null)
+        set(value) = preferences.edit().putString("phone", value).apply()
     override var cookies: Boolean
         get() = preferences.getBoolean("cookies", false)
         set(value) {

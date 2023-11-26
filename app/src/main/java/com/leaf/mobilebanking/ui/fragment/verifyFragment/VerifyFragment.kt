@@ -5,6 +5,7 @@ import android.os.CountDownTimer
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -27,6 +28,8 @@ class VerifyFragment : Fragment(R.layout.fragment_verify) {
     private lateinit var timer: CountDownTimer
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        viewModel.sendSMS(requireContext())
 
         viewLifecycleOwner.lifecycleScope.launch {
 
@@ -82,20 +85,30 @@ class VerifyFragment : Fragment(R.layout.fragment_verify) {
 
         binding.apply {
 
+            showAblePhone.text = viewModel.phone()
+
             confirm.setOnClickListener {
-                checking(0)
+                if (!errorMessage.isEnabled)
+                    checking(0)
                 val code = verification.pinCode()
                 viewModel.verify(code)
             }
+
+            back.setOnClickListener {
+                timer.cancel()
+                navController.popBackStack()
+            }
+
         }
 
-        timer = object : CountDownTimer(60_000, 1_000) {
+        timer = object : CountDownTimer(120_000, 1_000) {
             override fun onTick(p0: Long) {
                 updateCountdownText(p0)
             }
 
             override fun onFinish() {
                 checking(2)
+                binding.confirm.checking(false)
             }
 
         }.start()
@@ -108,19 +121,24 @@ class VerifyFragment : Fragment(R.layout.fragment_verify) {
                 when (n) {
                     0 -> {
                         chronometer.visibility = View.VISIBLE
+                        errorMessage.isEnabled = false
                         errorMessage.text = getString(R.string.request_via)
                         requireContext().getColor(R.color.black)
                     }
 
                     1 -> {
                         chronometer.visibility = View.GONE
+                        errorMessage.isEnabled = false
                         requireContext().getColor(R.color.error_red)
                     }
 
                     else -> {
+                        errorMessage.isEnabled = true
                         errorMessage.setOnClickListener {
+                            viewModel.resendSMS(requireContext())
                             timer.start()
                             checking(0)
+                            confirm.checking(true)
                         }
                         chronometer.visibility = View.GONE
 
@@ -131,6 +149,17 @@ class VerifyFragment : Fragment(R.layout.fragment_verify) {
                 }
             )
         }
+
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    timer.cancel()
+                    navController.popBackStack()
+                }
+
+            })
     }
 
     private fun updateCountdownText(millisUntilFinished: Long) {
@@ -140,9 +169,10 @@ class VerifyFragment : Fragment(R.layout.fragment_verify) {
         binding.chronometer.text = timeLeftFormatted
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroyView() {
         timer.cancel()
+        viewModel.stopService(requireContext())
+        super.onDestroyView()
     }
 
 }
