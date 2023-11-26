@@ -4,13 +4,19 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.snackbar.Snackbar
 import com.leaf.mobilebanking.R
+import com.leaf.mobilebanking.data.constants.ErrorCodes
 import com.leaf.mobilebanking.databinding.FragmentSignInBinding
 import com.leaf.mobilebanking.extensions.formatter
 import com.leaf.mobilebanking.extensions.toPhone
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SignInFragment : Fragment(R.layout.fragment_sign_in) {
@@ -20,6 +26,9 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        if (viewModel.isAgreed())
+            binding.cookiesLayout.visibility = View.GONE
+
         binding.apply {
 
             checkbox.setOnCheckedChangeListener { _, isChecked ->
@@ -27,13 +36,19 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
             }
 
             continueButton.setOnClickListener {
-                if (checkbox.isChecked)
-                    cookiesLayout.visibility = View.GONE
-                else
-                    cookiesLayout.visibility = View.VISIBLE
+                cookiesLayout.visibility = View.GONE
+                viewModel.agreedCookies()
             }
 
             enterButton.setOnClickListener {
+
+                errorMessage.visibility = View.GONE
+
+                val phone = phoneNumber.text.toString().toPhone()
+                val password = password.text.toString().trim()
+
+                viewModel.signIn(password, phone)
+
             }
 
             signUpAsk.setOnClickListener {
@@ -43,6 +58,64 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
             formatter("[00] [000] [00] [00]", phoneNumber)
 
         }
+
+
+        viewLifecycleOwner.lifecycleScope.launch {
+
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+
+                launch {
+                    viewModel.openVerifyFlow.collect {
+
+                        navController.navigate(R.id.action_signUpFragment_to_verifyFragment)
+
+                    }
+                }
+
+                launch {
+                    viewModel.errorFlow.collect { error ->
+
+                        binding.errorMessage.visibility = View.VISIBLE
+
+                        binding.errorMessage.text = when (error) {
+
+                            ErrorCodes.PHONE_NUMBER_ERROR ->
+                                getString(R.string.invalid_phone_number)
+
+                            ErrorCodes.PASSWORD_ERROR ->
+                                getString(R.string.minimum_length_of_password_is_4)
+
+                            else -> getString(R.string.something_wrong_please_try_again_later)
+                        }
+
+                    }
+                }
+
+                launch {
+                    viewModel.errorIOFlow.collect { error ->
+
+                        Snackbar.make(binding.enterButton.rootView, error, Snackbar.LENGTH_SHORT)
+                            .setAnchorView(binding.enterButton)
+                            .setAction("Action", null).show()
+
+                    }
+                }
+
+                launch {
+                    viewModel.noNetworkFlow.collect {
+                        Snackbar.make(
+                            binding.enterButton.rootView,
+                            requireContext().getString(R.string.please_connect_to_internet),
+                            Snackbar.LENGTH_SHORT
+                        )
+                            .setAnchorView(binding.enterButton)
+                            .setAction("Action", null).show()
+                    }
+                }
+
+            }
+        }
+
     }
 
 }

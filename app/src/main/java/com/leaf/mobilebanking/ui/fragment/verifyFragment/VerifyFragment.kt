@@ -38,7 +38,7 @@ class VerifyFragment : Fragment(R.layout.fragment_verify) {
                 launch {
                     viewModel.openVerifyFlow.collect {
 
-                        Toast.makeText(requireContext(), "win", Toast.LENGTH_SHORT).show()
+                        navController.navigate(R.id.action_verifyFragment_to_securityFragment)
 
                     }
                 }

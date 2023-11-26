@@ -3,41 +3,28 @@ package com.leaf.mobilebanking.domain
 import com.google.gson.GsonBuilder
 import com.leaf.mobilebanking.data.constants.ErrorCodes
 import com.leaf.mobilebanking.data.constants.State
-import com.leaf.mobilebanking.data.model.ErrorBody
-import com.leaf.mobilebanking.data.model.SignUpBody
+import com.leaf.mobilebanking.data.model.SignInBody
+import com.leaf.mobilebanking.data.model.SignInError
 import com.leaf.mobilebanking.data.preferences.Settings
-import com.leaf.mobilebanking.extensions.toPhone
-import com.leaf.mobilebanking.repository.signUpRepository.SignUpRepository
+import com.leaf.mobilebanking.repository.signInRepository.SignInRepository
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class SignUpUseCache @Inject constructor(private val repository: SignUpRepository, private val settings: Settings) {
-
-    suspend operator fun invoke(
-        firstName: String,
-        lastName: String,
-        password: String,
-        phone: String
-    ): State {
-
-        if (firstName.isEmpty() || firstName.length < 3) return State.Error(ErrorCodes.FIRST_NAME_ERROR)
-
-        if (lastName.isEmpty() || lastName.length < 3) return State.Error(ErrorCodes.LAST_NAME_ERROR)
-
+class SignInUseCache @Inject constructor(
+    private val repository: SignInRepository,
+    private val settings: Settings
+) {
+    suspend operator fun invoke(password: String, phone: String): State {
         if (phone.isEmpty() || phone.length != 13) return State.Error(ErrorCodes.PHONE_NUMBER_ERROR)
 
         if (password.isEmpty() || password.length < 4) return State.Error(ErrorCodes.PASSWORD_ERROR)
 
         try {
-            val entity = SignUpBody(firstName, lastName, password, phone)
-            val response = repository.signUp(entity)
+            val entity = SignInBody(password, phone)
+            val response = repository.signIn(entity)
 
-            settings.apply {
-                temporaryToken = response.token
-                code = response.code
-                this.phone = phone
-            }
+            settings.accessToken = response.token
 
         } catch (e: Exception) {
             e.printStackTrace()
@@ -47,7 +34,7 @@ class SignUpUseCache @Inject constructor(private val repository: SignUpRepositor
                 if (errorBody != null) {
                     try {
                         val error = GsonBuilder().create()
-                            .fromJson(errorBody.charStream(), ErrorBody::class.java)
+                            .fromJson(errorBody.charStream(), SignInError::class.java)
                         return State.ErrorIO(error.message)
                     } catch (ee: Exception) {
                         if (ee is IOException) return State.NoNetwork
