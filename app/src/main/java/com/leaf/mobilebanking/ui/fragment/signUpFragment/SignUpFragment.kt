@@ -111,14 +111,3 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
         }
     }
 }
-
-
-//private fun vibrateMe() {
-//    val vibrator = getSystemService(AppCompatActivity.VIBRATOR_SERVICE) as Vibrator
-//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//        vibrator.vibrate(VibrationEffect.createOneShot(75, VibrationEffect.DEFAULT_AMPLITUDE))
-//    } else {
-//        //deprecated in API 26
-//        vibrator.vibrate(75)
-//    }
-//}
