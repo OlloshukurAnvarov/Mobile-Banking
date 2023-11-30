@@ -25,7 +25,7 @@ class VerifyUseCache @Inject constructor(private val repository: VerifyRepositor
             val entity = Verify(token, code)
             val response = repository.signUpVerify(entity)
 
-            settings.accessToken = response.token
+            settings.temporaryToken = response.token
 
         } catch (e: Exception) {
             e.printStackTrace()

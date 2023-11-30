@@ -30,11 +30,19 @@
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
+            app:enterAnim="@drawable/slide_in_right"
+            app:exitAnim="@drawable/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_signInFragment_to_securityFragment"
             app:destination="@id/securityFragment"
+            app:enterAnim="@drawable/slide_in_right"
+            app:exitAnim="@drawable/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
@@ -45,7 +53,11 @@
         tools:layout="@layout/fragment_sign_up">
         <action
             android:id="@+id/action_signUpFragment_to_verifyFragment"
-            app:destination="@id/verifyFragment" />
+            app:destination="@id/verifyFragment"
+            app:enterAnim="@drawable/slide_in_right"
+            app:exitAnim="@drawable/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/verifyFragment"
@@ -55,6 +67,10 @@
         <action
             android:id="@+id/action_verifyFragment_to_securityFragment"
             app:destination="@id/securityFragment"
+            app:enterAnim="@drawable/slide_in_right"
+            app:exitAnim="@drawable/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
@@ -62,7 +78,22 @@
         android:id="@+id/securityFragment"
         android:name="com.leaf.mobilebanking.ui.fragment.securityFragment.SecurityFragment"
         android:label="SecurityFragment"
-        tools:layout="@layout/fragment_security"/>
+        tools:layout="@layout/fragment_security">
+        <action
+            android:id="@+id/action_securityFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@drawable/slide_in_right"
+            app:exitAnim="@drawable/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.leaf.mobilebanking.ui.fragment.homeFragment.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home" />
 
 
 </navigation>

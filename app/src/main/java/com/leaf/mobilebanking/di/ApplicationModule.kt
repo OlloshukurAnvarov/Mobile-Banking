@@ -1,9 +1,14 @@
 package com.leaf.mobilebanking.di
 
 import android.content.Context
+import androidx.room.Room
+import com.leaf.mobilebanking.data.AppDataBase
 import com.leaf.mobilebanking.data.api.AuthAPI
+import com.leaf.mobilebanking.data.dao.BankingDao
 import com.leaf.mobilebanking.data.preferences.Settings
 import com.leaf.mobilebanking.data.preferences.SettingsImp
+import com.leaf.mobilebanking.repository.securityRepository.SecurityRepositoryImp
+import com.leaf.mobilebanking.repository.securityRepository.SecurityRepository
 import com.leaf.mobilebanking.repository.signInRepository.SignInRepository
 import com.leaf.mobilebanking.repository.signInRepository.SignInRepositoryImp
 import com.leaf.mobilebanking.repository.signUpRepository.SignUpRepository
@@ -58,5 +63,20 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun providePreferences(@ApplicationContext context: Context): Settings = SettingsImp(context)
+
+    @Provides
+    @Singleton
+    fun provideRoom(@ApplicationContext context: Context) : AppDataBase = Room.databaseBuilder(
+        context,
+        AppDataBase::class.java, "Banking"
+    ).build()
+
+    @Provides
+    @Singleton
+    fun provideDao(appDataBase: AppDataBase): BankingDao = appDataBase.bankingDao()
+
+    @Provides
+    @Singleton
+    fun provideSecurityRepo(bankingDao: BankingDao) : SecurityRepository = SecurityRepositoryImp(bankingDao)
 
 }

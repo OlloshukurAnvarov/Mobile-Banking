@@ -13,10 +13,11 @@ import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setMargins
 import androidx.core.view.setPadding
+import androidx.navigation.findNavController
 import com.leaf.mobilebanking.R
 import com.leaf.mobilebanking.extensions.dp
 import com.leaf.mobilebanking.extensions.vibrateMe
-import kotlinx.coroutines.delay
+import com.leaf.mobilebanking.ui.fragment.securityFragment.SecurityViewModel
 
 class PinCode @JvmOverloads constructor(
     context: Context,
@@ -25,6 +26,13 @@ class PinCode @JvmOverloads constructor(
 ) : LinearLayout(context, attributeSet, defStyleAttr) {
     private var inputCode = ""
     private val circles = mutableListOf<ImageView>()
+    private val text = TextView(context)
+    private var isSafe = false
+    private var temporaryPassword = ""
+    private lateinit var viewModel: SecurityViewModel
+    private val navController by lazy { findNavController() }
+    private lateinit var _pinCode: String
+    private val pinCode by lazy { _pinCode }
 
     init {
 
@@ -39,7 +47,7 @@ class PinCode @JvmOverloads constructor(
             this.orientation = VERTICAL
             this.gravity = Gravity.CENTER_HORIZONTAL + Gravity.BOTTOM
 
-            val text = TextView(context).apply {
+            text.apply {
                 this.layoutParams =
                     LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
                         setMargins(16.dp.toInt(), 16.dp.toInt(), 16.dp.toInt(), 16.dp.toInt())
@@ -107,6 +115,19 @@ class PinCode @JvmOverloads constructor(
 
     }
 
+    fun madeSafe() {
+        isSafe = true
+        requestLayout()
+    }
+
+    fun setViewModel(viewModel: SecurityViewModel) {
+        this.viewModel = viewModel
+    }
+
+    fun setPinCode(pinCode: String){
+        _pinCode = pinCode
+    }
+
     private fun numPad(): ViewGroup {
 
         val linearPadHorizontal = LinearLayout(context).apply {
@@ -120,18 +141,8 @@ class PinCode @JvmOverloads constructor(
                 this.layoutParams =
                     LayoutParams(0, LayoutParams.MATCH_PARENT).apply {
                         setPadding(16.dp.toInt())
-                        textSize = 7.dp
                         weight = 1f
-                        textAlignment = TEXT_ALIGNMENT_CENTER
-                        setTextColor(ContextCompat.getColor(context, R.color.black))
-                        gravity = Gravity.CENTER_HORIZONTAL
-                        foreground =
-                            getDrawable(context, R.drawable.clickable_effect_number_pad)
-                        typeface = ResourcesCompat.getFont(context, R.font.poppins_medium)
                     }
-                text = "Ok"
-                this.setOnClickListener {
-                }
             }
 
             val numPad = TextView(context).apply {
@@ -230,23 +241,35 @@ class PinCode @JvmOverloads constructor(
         inputCode += pad
         circling()
         if (inputCode.length >= 4) {
-            if (!inputCode.equals("1234")) {
-                Log.d("DDD", inputCode)
-                inputCode = ""
-                unCirclingAll()
-                vibrateMe(context)
-            } else {
-                Log.d("DDD", "Win")
-            }
+            if (isSafe) {
+                if (temporaryPassword.isEmpty()) {
+                    temporaryPassword = inputCode
+                    inputCode = ""
+                    unCirclingAll()
+                    text.text = context.getString(R.string.confirm_the_new_pin_code)
+                } else
+                    if (checkIt(temporaryPassword)) {
+                        isSafe = false
+                        text.text = context.getString(R.string.enter_your_pin_code)
+                        viewModel.savePassword(temporaryPassword)
+                        viewModel.safe()
+                        inputCode = ""
+                        temporaryPassword = ""
+                        unCirclingAll()
+                        navController.navigate(R.id.action_securityFragment_to_homeFragment)
+                    }
+            } else
+                if (checkIt(pinCode))
+                    navController.navigate(R.id.action_securityFragment_to_homeFragment)
         }
     }
 
     private fun unFilling() {
         if (inputCode.isNotEmpty()) {
-            inputCode.removeRange(inputCode.length - 1, inputCode.length)
+            inputCode = inputCode.removeRange(inputCode.length - 1, inputCode.length)
             unCircling()
+            return
         }
-        requestLayout()
     }
 
     private fun circling() {
@@ -274,7 +297,15 @@ class PinCode @JvmOverloads constructor(
             it.setImageResource(R.drawable.circle_empty)
             it.isEnabled = false
         }
-        requestLayout()
     }
+
+    private fun checkIt(code: String): Boolean =
+        if (inputCode != code) {
+            inputCode = ""
+            unCirclingAll()
+            vibrateMe(context)
+            false
+        } else
+            true
 
 }

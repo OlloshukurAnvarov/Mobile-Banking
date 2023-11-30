@@ -42,7 +42,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
             }
 
             signInAsk.setOnClickListener {
-                navController.navigate(R.id.signInFragment)
+                navController.popBackStack()
             }
 
             formatter("[00] [000] [00] [00]", phoneNumber)

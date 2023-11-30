@@ -20,9 +20,9 @@ fun formatter(structure: String, editText: EditText) {
 fun vibrateMe(context: Context) {
     val vibrator = context.getSystemService(AppCompatActivity.VIBRATOR_SERVICE) as Vibrator
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        vibrator.vibrate(VibrationEffect.createOneShot(75, VibrationEffect.DEFAULT_AMPLITUDE))
+        vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE))
     } else {
         //deprecated in API 26
-        vibrator.vibrate(75)
+        vibrator.vibrate(100)
     }
 }
