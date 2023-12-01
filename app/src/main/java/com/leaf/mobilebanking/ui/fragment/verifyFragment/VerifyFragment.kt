@@ -84,7 +84,7 @@ class VerifyFragment : Fragment(R.layout.fragment_verify) {
         }
 
         binding.apply {
-
+            
             showAblePhone.text = viewModel.phone()
 
             confirm.setOnClickListener {

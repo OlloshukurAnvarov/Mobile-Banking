@@ -2,7 +2,6 @@ package com.leaf.mobilebanking.ui.customview
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -293,7 +292,7 @@ class PinCode @JvmOverloads constructor(
     }
 
     private fun unCirclingAll() {
-        circles.reversed().forEach {
+        circles.forEach {
             it.setImageResource(R.drawable.circle_empty)
             it.isEnabled = false
         }

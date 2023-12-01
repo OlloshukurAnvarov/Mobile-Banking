@@ -65,9 +65,9 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
 
                 launch {
-                    viewModel.openVerifyFlow.collect {
+                    viewModel.openSecurityFlow.collect {
 
-                        navController.navigate(R.id.action_signUpFragment_to_verifyFragment)
+                        navController.navigate(R.id.action_signInFragment_to_securityFragment)
 
                     }
                 }

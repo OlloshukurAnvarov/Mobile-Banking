@@ -3,10 +3,8 @@ package com.leaf.mobilebanking.ui.fragment.signInFragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.leaf.mobilebanking.data.constants.State
-import com.leaf.mobilebanking.data.model.SignInBody
 import com.leaf.mobilebanking.data.preferences.Settings
 import com.leaf.mobilebanking.domain.SignInUseCache
-import com.leaf.mobilebanking.repository.signInRepository.SignInRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -19,8 +17,8 @@ class SignInViewModel @Inject constructor(
     private val settings: Settings
 ) : ViewModel() {
 
-    private val _openVerifyFlow = MutableSharedFlow<Unit>()
-    val openVerifyFlow: SharedFlow<Unit> = _openVerifyFlow
+    private val _openSecurityFlow = MutableSharedFlow<Unit>()
+    val openSecurityFlow: SharedFlow<Unit> = _openSecurityFlow
 
     private val _errorFlow = MutableSharedFlow<Int>()
     val errorFlow: SharedFlow<Int> = _errorFlow
@@ -48,7 +46,7 @@ class SignInViewModel @Inject constructor(
         when (state) {
             is State.Error -> _errorFlow.emit(state.code)
             is State.NoNetwork -> _noNetworkFlow.emit(Unit)
-            is State.Success<*> -> _openVerifyFlow.emit(Unit)
+            is State.Success<*> -> _openSecurityFlow.emit(Unit)
             is State.ErrorIO -> _errorIOFlow.emit(state.message)
         }
     }

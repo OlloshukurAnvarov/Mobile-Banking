@@ -19,6 +19,7 @@ class Verification @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attributeSet, defStyleAttr) {
 
+    private val listOutline = mutableListOf<TextInput>()
     val list = mutableListOf<TextInputEditText>()
 
     init {
@@ -30,7 +31,6 @@ class Verification @JvmOverloads constructor(
                 layoutParams = LayoutParams(40.dp.toInt(), LayoutParams.MATCH_PARENT).apply {
                     marginEnd = 6.dp.toInt()
                     boxStrokeColor = getColor(context, R.color.green)
-
                 }
             }
 
@@ -38,6 +38,7 @@ class Verification @JvmOverloads constructor(
                 textInput.setImeDone()
 
             addView(textInput)
+            listOutline.add(textInput)
             list.add(textInput.view())
 
         }
@@ -50,7 +51,6 @@ class Verification @JvmOverloads constructor(
         }
         return s
     }
-
 }
 
 class TextInput @JvmOverloads constructor(
@@ -92,5 +92,4 @@ class TextInput @JvmOverloads constructor(
         input.imeOptions = EditorInfo.IME_ACTION_DONE
         requestLayout()
     }
-
 }
