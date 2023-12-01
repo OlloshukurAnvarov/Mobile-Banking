@@ -11,6 +11,15 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="title_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
     <style name="text_input_layout_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -70,6 +79,13 @@
         <item name="android:foreground">@drawable/clickable_effect_arrow_back</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:src">@drawable/arrow_back</item>
+    </style>
+
+    <style name="transaction_button_style">
+        <item name="android:foreground">@drawable/clickable_effect_transaction_button</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
     </style>
 
 </resources>

@@ -30,4 +30,7 @@
     <string name="send_again">Send again</string>
     <string name="enter_your_pin_code">Enter your PIN code</string>
     <string name="confirm_the_new_pin_code">Confirm the new PIN code</string>
+    <string name="my_account">My accounts</string>
+    <string name="balance">Balance</string>
+    <string name="you_can_add_your_bank_cards">You can add your bank cards</string>
 </resources>
