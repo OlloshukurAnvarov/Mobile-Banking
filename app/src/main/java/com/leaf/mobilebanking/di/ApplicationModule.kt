@@ -4,9 +4,12 @@ import android.content.Context
 import androidx.room.Room
 import com.leaf.mobilebanking.data.AppDataBase
 import com.leaf.mobilebanking.data.api.AuthAPI
+import com.leaf.mobilebanking.data.api.CardAPI
 import com.leaf.mobilebanking.data.dao.BankingDao
 import com.leaf.mobilebanking.data.preferences.Settings
 import com.leaf.mobilebanking.data.preferences.SettingsImp
+import com.leaf.mobilebanking.repository.cardsRepository.CardRepository
+import com.leaf.mobilebanking.repository.cardsRepository.CardRepositoryImp
 import com.leaf.mobilebanking.repository.securityRepository.SecurityRepositoryImp
 import com.leaf.mobilebanking.repository.securityRepository.SecurityRepository
 import com.leaf.mobilebanking.repository.signInRepository.SignInRepository
@@ -50,6 +53,10 @@ class ApplicationModule {
 
     @Provides
     @Singleton
+    fun provideCardAPI(retrofit: Retrofit): CardAPI = retrofit.create()
+
+    @Provides
+    @Singleton
     fun provideSignInRepo(authAPI: AuthAPI): SignInRepository = SignInRepositoryImp(authAPI)
 
     @Provides
@@ -59,6 +66,10 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun provideSignUpVerifyRepo(authAPI: AuthAPI): VerifyRepository = VerifyRepositoryImp(authAPI)
+
+    @Provides
+    @Singleton
+    fun provideCardRepo(cardAPI: CardAPI) : CardRepository = CardRepositoryImp(cardAPI)
 
     @Provides
     @Singleton
