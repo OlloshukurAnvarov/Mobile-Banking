@@ -301,11 +301,9 @@ class PinCode @JvmOverloads constructor(
     private fun checkIt(code: String): Boolean =
         if (inputCode != code) {
             inputCode = ""
-
             unCirclingAll()
             vibrateMe(context)
             false
         } else
             true
-
 }

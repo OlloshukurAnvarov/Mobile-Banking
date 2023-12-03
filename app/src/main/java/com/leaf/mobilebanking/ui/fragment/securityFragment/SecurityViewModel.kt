@@ -6,6 +6,7 @@ import com.leaf.mobilebanking.data.model.Password
 import com.leaf.mobilebanking.data.preferences.Settings
 import com.leaf.mobilebanking.repository.securityRepository.SecurityRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -43,5 +44,4 @@ class SecurityViewModel @Inject constructor(
             temporaryToken = null
         }
     }
-
 }

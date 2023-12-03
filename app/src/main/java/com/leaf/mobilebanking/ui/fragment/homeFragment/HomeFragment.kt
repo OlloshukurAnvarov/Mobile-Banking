@@ -33,6 +33,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             viewModel.cards()
         }
 
+        binding.addCard.setOnClickListener {
+            navController.navigate(R.id.action_homeFragment_to_refactorCardFragment)
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
 
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
