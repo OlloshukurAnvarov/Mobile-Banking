@@ -1,21 +1,26 @@
-package com.leaf.mobilebanking.ui.fragment.signUpFragment
+package com.leaf.mobilebanking.ui.fragment.homeFragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.leaf.mobilebanking.data.constants.State
-import com.leaf.mobilebanking.domain.SignUpUseCase
+import com.leaf.mobilebanking.data.preferences.Settings
+import com.leaf.mobilebanking.domain.GetCardsUseCase
+import com.leaf.mobilebanking.domain.entity.CardData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor(private val signUpUseCase: SignUpUseCase) :
-    ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val getCardsUseCase: GetCardsUseCase,
+    private val settings: Settings
+) : ViewModel() {
 
-    private val _openVerifyFlow = MutableSharedFlow<Unit>()
-    val openVerifyFlow: SharedFlow<Unit> = _openVerifyFlow
+    private val _cardsFlow = MutableSharedFlow<List<CardData>>()
+    val cardsFlow: SharedFlow<List<CardData>> = _cardsFlow
 
     private val _errorFlow = MutableSharedFlow<Int>()
     val errorFlow: SharedFlow<Int> = _errorFlow
@@ -26,19 +31,25 @@ class SignUpViewModel @Inject constructor(private val signUpUseCase: SignUpUseCa
     private val _noNetworkFlow = MutableSharedFlow<Unit>()
     val noNetworkFlow: SharedFlow<Unit> = _noNetworkFlow
 
-    fun signUp(firstName: String, lastName: String, password: String, phone: String) {
+    fun cards() {
         viewModelScope.launch {
-            val state = signUpUseCase(firstName, lastName, password, phone)
+            val state = getCardsUseCase(settings.accessToken)
             handleState(state)
+        }
+    }
+
+    fun delaying() {
+        viewModelScope.launch {
+            delay(250)
         }
     }
 
     private suspend fun handleState(state: State) {
         when (state) {
             is State.Error -> _errorFlow.emit(state.code)
-            is State.NoNetwork -> _noNetworkFlow.emit(Unit)
-            is State.Success<*> -> _openVerifyFlow.emit(Unit)
             is State.ErrorIO -> _errorIOFlow.emit(state.message)
+            State.NoNetwork -> _noNetworkFlow.emit(Unit)
+            is State.Success<*> -> _cardsFlow.emit(state.data as List<CardData>)
         }
     }
 

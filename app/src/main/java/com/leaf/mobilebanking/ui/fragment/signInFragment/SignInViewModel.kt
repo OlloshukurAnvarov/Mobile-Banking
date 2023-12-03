@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.leaf.mobilebanking.data.constants.State
 import com.leaf.mobilebanking.data.preferences.Settings
-import com.leaf.mobilebanking.domain.SignInUseCache
+import com.leaf.mobilebanking.domain.SignInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val signInUseCache: SignInUseCache,
+    private val signInUseCase: SignInUseCase,
     private val settings: Settings
 ) : ViewModel() {
 
@@ -37,7 +37,7 @@ class SignInViewModel @Inject constructor(
 
     fun signIn(password: String, phone: String) {
         viewModelScope.launch {
-            val state = signInUseCache(password, phone)
+            val state = signInUseCase(password, phone)
             handleState(state)
         }
     }

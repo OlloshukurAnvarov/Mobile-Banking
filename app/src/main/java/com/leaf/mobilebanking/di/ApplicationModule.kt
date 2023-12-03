@@ -35,9 +35,9 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
+    fun provideRetrofit(): Retrofit = Retrofit.Builder()
         .baseUrl("http://64.227.145.43/api/")
-        .client(okHttpClient)
+        .client(OkHttpClient())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -69,7 +69,7 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideCardRepo(cardAPI: CardAPI) : CardRepository = CardRepositoryImp(cardAPI)
+    fun provideCardRepo(cardAPI: CardAPI): CardRepository = CardRepositoryImp(cardAPI)
 
     @Provides
     @Singleton
@@ -77,7 +77,7 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideRoom(@ApplicationContext context: Context) : AppDataBase = Room.databaseBuilder(
+    fun provideRoom(@ApplicationContext context: Context): AppDataBase = Room.databaseBuilder(
         context,
         AppDataBase::class.java, "Banking"
     ).build()
@@ -88,6 +88,7 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideSecurityRepo(bankingDao: BankingDao) : SecurityRepository = SecurityRepositoryImp(bankingDao)
+    fun provideSecurityRepo(bankingDao: BankingDao): SecurityRepository =
+        SecurityRepositoryImp(bankingDao)
 
 }

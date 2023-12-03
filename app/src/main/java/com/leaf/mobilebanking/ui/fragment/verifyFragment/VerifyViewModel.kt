@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.leaf.mobilebanking.MyService
 import com.leaf.mobilebanking.data.constants.State
 import com.leaf.mobilebanking.data.preferences.Settings
-import com.leaf.mobilebanking.domain.VerifyUseCache
+import com.leaf.mobilebanking.domain.VerifyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class VerifyViewModel @Inject constructor(
-    private val verifyUseCache: VerifyUseCache,
+    private val verifyUseCase: VerifyUseCase,
     private val settings: Settings
 ) :
     ViewModel() {
@@ -35,7 +35,7 @@ class VerifyViewModel @Inject constructor(
 
     fun verify(code: String) {
         viewModelScope.launch {
-            val state = verifyUseCache(settings.temporaryToken, code)
+            val state = verifyUseCase(settings.temporaryToken, code)
             handleState(state)
         }
     }
@@ -50,7 +50,7 @@ class VerifyViewModel @Inject constructor(
     fun resendSMS(context: Context) {
         stopService(context)
         viewModelScope.launch {
-            verifyUseCache.resend()
+            verifyUseCase.resend()
             delay(2_000)
             sendSMS(context)
         }

@@ -1,10 +1,8 @@
 package com.leaf.mobilebanking.domain
 
-import android.util.Log
 import com.google.gson.GsonBuilder
 import com.leaf.mobilebanking.data.constants.ErrorCodes
 import com.leaf.mobilebanking.data.constants.State
-import com.leaf.mobilebanking.data.model.ErrorBody
 import com.leaf.mobilebanking.data.model.Token
 import com.leaf.mobilebanking.data.model.Verify
 import com.leaf.mobilebanking.data.model.VerifyErrorBody
@@ -14,7 +12,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class VerifyUseCache @Inject constructor(private val repository: VerifyRepository) {
+class VerifyUseCase @Inject constructor(private val repository: VerifyRepository) {
 
     @Inject
     lateinit var settings: Settings

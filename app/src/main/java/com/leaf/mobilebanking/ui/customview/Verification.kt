@@ -4,10 +4,12 @@ import android.content.Context
 import android.text.InputFilter
 import android.text.InputType
 import android.util.AttributeSet
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.leaf.mobilebanking.R
@@ -41,10 +43,18 @@ class Verification @JvmOverloads constructor(
             listOutline.add(textInput)
             list.add(textInput.view())
 
+            textInput.view().addTextChangedListener {
+                val focusable = if (it?.toString().isNullOrEmpty()) {
+                    textInput.view().focusSearch(View.FOCUS_LEFT)
+                } else {
+                    textInput.view().focusSearch(View.FOCUS_RIGHT)
+                }
+                focusable?.requestFocus()
+            }
         }
     }
 
-    fun pinCode(): String{
+    fun pinCode(): String {
         var s = ""
         list.forEach {
             s += it.text
