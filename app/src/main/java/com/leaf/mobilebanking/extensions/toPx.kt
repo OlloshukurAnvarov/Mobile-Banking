@@ -20,6 +20,31 @@ fun String.toPhone(): String {
     return s
 }
 
+fun String.toPan(): String {
+    var s = ""
+    for (i in this.split(" "))
+        s += i
+    return s
+}
+
+fun String.toPhoneSpace(): String {
+    val s = StringBuilder()
+    this.forEachIndexed { index, digit ->
+        if (index % 4 == 0 && index != 0)
+            s.append(" ")
+        s.append(digit)
+    }
+    return s.toString()
+}
+
+fun String.toMonth(): Int {
+    return this.take(2).toInt()
+}
+
+fun String.toYear(): Int {
+    return ("20" + this.takeLast(2)).toInt()
+}
+
 fun String.getLastFour(): String = "**** " + this.drop(this.length - 4)
 
 fun validateDate(m: Int, y: Int): String = "$m/${y % 100}"

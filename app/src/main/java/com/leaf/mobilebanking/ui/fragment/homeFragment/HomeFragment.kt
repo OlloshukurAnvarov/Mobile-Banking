@@ -2,6 +2,7 @@ package com.leaf.mobilebanking.ui.fragment.homeFragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -13,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.leaf.mobilebanking.R
 import com.leaf.mobilebanking.databinding.FragmentHomeBinding
 import com.leaf.mobilebanking.domain.entity.CardData
+import com.leaf.mobilebanking.extensions.toPhoneSpace
 import com.leaf.mobilebanking.ui.adapter.CardAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -27,14 +29,31 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val adapter by lazy { CardAdapter(data) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.recycler.adapter = adapter
 
-        binding.emptyList.setOnClickListener {
-            viewModel.cards()
-        }
+        binding.apply {
 
-        binding.addCard.setOnClickListener {
-            navController.navigate(R.id.action_homeFragment_to_refactorCardFragment)
+            recycler.adapter = adapter
+
+            adapter.setOnClickListener {
+                navController.navigate(
+                    R.id.action_homeFragment_to_refactorCardFragment,
+                    bundleOf(
+                        "selected-card-id" to data[it].id,
+                        "selected-card-name" to data[it].name,
+                        "selected-card-expires-date" to (data[it].expireMonth.toString() + "/" + data[it].expireYear.toString()
+                            .takeLast(2)),
+                        "selected-card-number" to data[it].pan.toPhoneSpace()
+                    )
+                )
+            }
+
+            emptyList.setOnClickListener {
+                viewModel.cards()
+            }
+
+            addCard.setOnClickListener {
+                navController.navigate(R.id.action_homeFragment_to_refactorCardFragment)
+            }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

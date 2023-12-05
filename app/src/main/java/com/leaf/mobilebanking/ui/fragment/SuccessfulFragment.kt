@@ -15,9 +15,16 @@ class SuccessfulFragment : Fragment(R.layout.fragment_successful) {
     private val navController by lazy { findNavController() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val text = arguments?.getString("info-index", null)
+
+        if (text != null)
+            binding.infoText.text = text
+
         binding.close.setOnClickListener {
             navController.popBackStack()
         }
+
     }
 
 }

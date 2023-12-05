@@ -30,7 +30,8 @@ class AddCardUseCase @Inject constructor(private val cardRepository: CardReposit
                 name = name,
                 pan = pan
             )
-            val response = cardRepository.addCard(bearerToken, entity)
+            val token = "Bearer $bearerToken"
+            val response = cardRepository.addCard(token, entity)
 
         }catch (e: Exception){
             e.printStackTrace()

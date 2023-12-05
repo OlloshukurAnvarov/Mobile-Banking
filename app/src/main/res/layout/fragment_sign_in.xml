@@ -76,12 +76,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/text_input_layout_style"
-            android:hint="@string/_998_00_000_00_00"
+            app:hintEnabled="false"
             app:prefixText="+998"
             app:startIconDrawable="@drawable/uzbekistan_map_flag">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phone_number"
+                android:hint="@string/_998_00_000_00_00"
                 style="@style/phone_edittext_style" />
 
         </com.google.android.material.textfield.TextInputLayout>

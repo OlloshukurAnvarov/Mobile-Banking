@@ -8,7 +8,7 @@
     <string name="service_privacy_policy">\tService privacy policy</string>
     <string name="i_agree">\tI agree with all terms and conditions.</string>
     <string name="continue_text">Continue</string>
-    <string name="_998_00_000_00_00">+998 00 000 00 00</string>
+    <string name="_998_00_000_00_00">00 000 00 00</string>
     <string name="forgot_password">Forgot password!</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="sign_up">Sign up</string>
@@ -41,8 +41,12 @@
     <string name="name">name</string>
     <string name="_0000_0000_0000_0000">0000 0000 0000 0000</string>
     <string name="expired_date">Expired date</string>
-    <string name="_02_24">02/24</string>
     <string name="_00_00">00/00</string>
     <string name="month_or_year_is_invalid">Month or year is invalid</string>
     <string name="close">Close</string>
+    <string name="edit_card">Edit card</string>
+    <string name="edit">Edit</string>
+    <string name="successfully_added">Successfully Added</string>
+    <string name="successfully_edited">Successfully Edited</string>
+    <string name="view_receipt">View receipt</string>
 </resources>
