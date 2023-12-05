@@ -79,6 +79,7 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
+    implementation("com.google.android.material:material:1.10.0")
 }
 
 kapt {

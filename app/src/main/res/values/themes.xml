@@ -9,4 +9,12 @@
     </style>
 
     <style name="Theme.MobileBanking" parent="Base.Theme.MobileBanking" />
+
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorPrimary">@color/gray</item>
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button.Positive</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button.Negative</item>
+    </style>
+
 </resources>

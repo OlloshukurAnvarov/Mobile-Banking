@@ -12,13 +12,28 @@
 
         <ImageView
             android:id="@+id/back"
-            style="@style/arrow_back_style" />
+            style="@style/arrow_back_style"
+            android:layout_marginTop="2dp" />
 
         <TextView
             android:id="@+id/title"
             style="@style/title_text_style"
             android:layout_gravity="center"
             android:text="@string/add_card" />
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:layout_margin="8dp"
+            android:foreground="@drawable/clickable_effect_delete_button"
+            android:padding="8dp"
+            android:text="@string/delete"
+            android:textColor="#D11A2A "
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
 
     </FrameLayout>
 

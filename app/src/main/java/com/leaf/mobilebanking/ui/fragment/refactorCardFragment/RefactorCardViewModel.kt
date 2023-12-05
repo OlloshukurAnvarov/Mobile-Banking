@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.leaf.mobilebanking.data.constants.State
 import com.leaf.mobilebanking.data.preferences.Settings
 import com.leaf.mobilebanking.domain.AddCardUseCase
+import com.leaf.mobilebanking.domain.DeleteCardUseCase
 import com.leaf.mobilebanking.domain.UpdateCardUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class RefactorCardViewModel @Inject constructor(
     private val addCardUseCase: AddCardUseCase,
     private val updateCardUseCase: UpdateCardUseCase,
+    private val deleteCardUseCase: DeleteCardUseCase,
     private val settings: Settings
 ) : ViewModel() {
 
@@ -24,6 +26,9 @@ class RefactorCardViewModel @Inject constructor(
 
     private val _successUpdateFlow = MutableSharedFlow<Unit>()
     val successUpdateFlow: SharedFlow<Unit> = _successUpdateFlow
+
+    private val _successDeletedFlow = MutableSharedFlow<Unit>()
+    val successDeletedFlow: SharedFlow<Unit> = _successDeletedFlow
 
     private val _errorFlow = MutableSharedFlow<Int>()
     val errorFlow: SharedFlow<Int> = _errorFlow
@@ -56,6 +61,13 @@ class RefactorCardViewModel @Inject constructor(
         }
     }
 
+    fun delete(id: Int) {
+        viewModelScope.launch {
+            val state = deleteCardUseCase(settings.accessToken, id)
+            handleStateDelete(state)
+        }
+    }
+
     private suspend fun handleState(state: State) {
         when (state) {
             is State.Error -> _errorFlow.emit(state.code)
@@ -71,6 +83,15 @@ class RefactorCardViewModel @Inject constructor(
             is State.ErrorIO -> _errorIOFlow.emit(state.message)
             State.NoNetwork -> _noNetworkFlow.emit(Unit)
             is State.Success<*> -> _successUpdateFlow.emit(Unit)
+        }
+    }
+
+    private suspend fun handleStateDelete(state: State) {
+        when (state) {
+            is State.Error -> _errorFlow.emit(state.code)
+            is State.ErrorIO -> _errorIOFlow.emit(state.message)
+            State.NoNetwork -> _noNetworkFlow.emit(Unit)
+            is State.Success<*> -> _successDeletedFlow.emit(Unit)
         }
     }
 

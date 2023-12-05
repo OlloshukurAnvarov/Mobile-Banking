@@ -48,5 +48,7 @@
     <string name="edit">Edit</string>
     <string name="successfully_added">Successfully Added</string>
     <string name="successfully_edited">Successfully Edited</string>
+    <string name="successfully_deleted">Successfully Deleted</string>
     <string name="view_receipt">View receipt</string>
+    <string name="delete">Delete</string>
 </resources>
