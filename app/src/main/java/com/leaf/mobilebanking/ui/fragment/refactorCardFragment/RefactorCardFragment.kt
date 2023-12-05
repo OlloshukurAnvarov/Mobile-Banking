@@ -81,12 +81,12 @@ class RefactorCardFragment : Fragment(R.layout.fragment_refactor_card) {
 
                 delete.setOnClickListener {
                     MaterialAlertDialogBuilder(requireContext(), R.style.ThemeOverlay_App_MaterialAlertDialog)
-                        .setTitle("Confirm Deletion")
-                        .setMessage("Are you sure you want to delete this item? This action cannot be undone. Please confirm to proceed.")
-                        .setNegativeButton("Cancel") { dialog, _ ->
+                        .setTitle(getString(R.string.confirm_deletion))
+                        .setMessage(getString(R.string.are_you_sure))
+                        .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                             dialog.cancel()
                         }
-                        .setPositiveButton("Delete") { dialog, _ ->
+                        .setPositiveButton(getString(R.string.delete)) { dialog, _ ->
                             viewModel.delete(_id)
                             dialog.dismiss()
                         }

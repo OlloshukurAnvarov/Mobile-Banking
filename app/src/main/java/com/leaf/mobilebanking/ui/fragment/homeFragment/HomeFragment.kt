@@ -17,7 +17,6 @@ import com.leaf.mobilebanking.domain.entity.CardData
 import com.leaf.mobilebanking.extensions.toPhoneSpace
 import com.leaf.mobilebanking.ui.adapter.CardAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -54,6 +53,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             addCard.setOnClickListener {
                 navController.navigate(R.id.action_homeFragment_to_refactorCardFragment)
             }
+
+            settings.setOnClickListener {
+                navController.navigate(R.id.action_homeFragment_to_settingsFragment)
+            }
+
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -110,6 +114,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 emptyList.visibility = View.VISIBLE
                 progress.visibility = View.GONE
                 addCardLayout.visibility = View.VISIBLE
+
+                emptyList.setOnClickListener {
+                    navController.navigate(R.id.action_homeFragment_to_refactorCardFragment)
+                }
+
             } else {
                 viewModel.delaying()
                 recycler.visibility = View.VISIBLE

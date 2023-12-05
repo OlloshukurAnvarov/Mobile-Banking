@@ -93,20 +93,27 @@
         android:id="@+id/homeFragment"
         android:name="com.leaf.mobilebanking.ui.fragment.homeFragment.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_refactorCardFragment"
             app:destination="@id/refactorCardFragment"
             app:enterAnim="@drawable/slide_in_right"
             app:exitAnim="@drawable/slide_out_left"
             app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right"/>
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@drawable/slide_in_right"
+            app:exitAnim="@drawable/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/refactorCardFragment"
         android:name="com.leaf.mobilebanking.ui.fragment.refactorCardFragment.RefactorCardFragment"
         android:label="RefactorCardFragment"
-        tools:layout="@layout/fragment_refactor_card" >
+        tools:layout="@layout/fragment_refactor_card">
         <action
             android:id="@+id/action_refactorCardFragment_to_successfulFragment"
             app:destination="@id/successfulFragment"
@@ -121,6 +128,24 @@
         android:id="@+id/successfulFragment"
         android:name="com.leaf.mobilebanking.ui.fragment.SuccessfulFragment"
         android:label="SuccessfulFragment"
-        tools:layout="@layout/fragment_successful"/>
+        tools:layout="@layout/fragment_successful" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.leaf.mobilebanking.ui.fragment.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@drawable/slide_in_right"
+            app:exitAnim="@drawable/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.leaf.mobilebanking.ui.fragment.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
 
 </navigation>
