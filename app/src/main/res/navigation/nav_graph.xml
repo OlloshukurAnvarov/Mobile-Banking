@@ -108,6 +108,13 @@
             app:exitAnim="@drawable/slide_out_left"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_transferFragment"
+            app:destination="@id/transferFragment"
+            app:enterAnim="@drawable/slide_in_right"
+            app:exitAnim="@drawable/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/refactorCardFragment"
@@ -140,12 +147,38 @@
             app:enterAnim="@drawable/slide_in_right"
             app:exitAnim="@drawable/slide_out_left"
             app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right"/>
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.leaf.mobilebanking.ui.fragment.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/transferFragment"
+        android:name="com.leaf.mobilebanking.ui.fragment.transferFragment.TransferFragment"
+        android:label="TransferFragment"
+        tools:layout="@layout/fragment_transfer">
+        <action
+            android:id="@+id/action_transferFragment_to_confirmFragment"
+            app:destination="@id/confirmFragment"
+            app:enterAnim="@drawable/slide_in_right"
+            app:exitAnim="@drawable/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmFragment"
+        android:name="com.leaf.mobilebanking.ui.fragment.confirmationFragment.ConfirmFragment"
+        android:label="ConfirmFragment"
+        tools:layout="@layout/fragment_confirm">
+        <action
+            android:id="@+id/action_confirmFragment_to_successfulFragment"
+            app:destination="@id/successfulFragment"
+            app:enterAnim="@drawable/slide_in_right"
+            app:exitAnim="@drawable/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
 
 </navigation>

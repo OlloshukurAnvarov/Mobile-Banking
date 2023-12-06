@@ -5,17 +5,22 @@ import androidx.room.Room
 import com.leaf.mobilebanking.data.AppDataBase
 import com.leaf.mobilebanking.data.api.AuthAPI
 import com.leaf.mobilebanking.data.api.CardAPI
+import com.leaf.mobilebanking.data.api.TransferAPI
 import com.leaf.mobilebanking.data.dao.BankingDao
 import com.leaf.mobilebanking.data.preferences.Settings
 import com.leaf.mobilebanking.data.preferences.SettingsImp
 import com.leaf.mobilebanking.repository.cardsRepository.CardRepository
 import com.leaf.mobilebanking.repository.cardsRepository.CardRepositoryImp
+import com.leaf.mobilebanking.repository.confirmRepository.ConfirmRepository
+import com.leaf.mobilebanking.repository.confirmRepository.ConfirmRepositoryImp
 import com.leaf.mobilebanking.repository.securityRepository.SecurityRepositoryImp
 import com.leaf.mobilebanking.repository.securityRepository.SecurityRepository
 import com.leaf.mobilebanking.repository.signInRepository.SignInRepository
 import com.leaf.mobilebanking.repository.signInRepository.SignInRepositoryImp
 import com.leaf.mobilebanking.repository.signUpRepository.SignUpRepository
 import com.leaf.mobilebanking.repository.signUpRepository.SignUpRepositoryImp
+import com.leaf.mobilebanking.repository.transferRepository.TransferRepository
+import com.leaf.mobilebanking.repository.transferRepository.TransferRepositoryImp
 import com.leaf.mobilebanking.repository.verifyRepository.VerifyRepository
 import com.leaf.mobilebanking.repository.verifyRepository.VerifyRepositoryImp
 import dagger.Module
@@ -57,6 +62,10 @@ class ApplicationModule {
 
     @Provides
     @Singleton
+    fun provideTransferAPI(retrofit: Retrofit): TransferAPI = retrofit.create()
+
+    @Provides
+    @Singleton
     fun provideSignInRepo(authAPI: AuthAPI): SignInRepository = SignInRepositoryImp(authAPI)
 
     @Provides
@@ -70,6 +79,16 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun provideCardRepo(cardAPI: CardAPI): CardRepository = CardRepositoryImp(cardAPI)
+
+    @Provides
+    @Singleton
+    fun provideTransferRepo(transferAPI: TransferAPI): TransferRepository =
+        TransferRepositoryImp(transferAPI)
+
+    @Provides
+    @Singleton
+    fun provideTransferVerifyRepo(transferAPI: TransferAPI): ConfirmRepository =
+        ConfirmRepositoryImp(transferAPI)
 
     @Provides
     @Singleton

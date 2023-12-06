@@ -63,5 +63,5 @@ fun Double.withSpace(): String {
                 s.append(" ")
             s.append(digit)
         }
-    return s.reversed().toString() + if (s.length <= 12) (f.toString().drop(1) + "0") else ""
+    return s.reversed().toString() + if (s.length <= 10) (f.toString().drop(1) + "0") else ""
 }

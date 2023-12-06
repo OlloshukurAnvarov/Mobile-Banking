@@ -17,6 +17,9 @@ class SuccessfulFragment : Fragment(R.layout.fragment_successful) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val text = arguments?.getString("info-index", null)
+        val isTransfers = arguments?.getBoolean("transfer-index", false) ?: false
+
+        binding.receipt.visibility = if (isTransfers) View.VISIBLE else View.GONE
 
         if (text != null)
             binding.infoText.text = text

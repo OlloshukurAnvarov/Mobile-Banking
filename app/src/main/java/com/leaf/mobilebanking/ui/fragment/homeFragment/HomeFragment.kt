@@ -54,6 +54,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 navController.navigate(R.id.action_homeFragment_to_refactorCardFragment)
             }
 
+            send.setOnClickListener {
+                navController.navigate(R.id.action_homeFragment_to_transferFragment)
+            }
+
             settings.setOnClickListener {
                 navController.navigate(R.id.action_homeFragment_to_settingsFragment)
             }

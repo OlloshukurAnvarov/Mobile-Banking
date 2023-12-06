@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/arrow_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            android:layout_gravity="center"
+            android:text="@string/transfer_money" />
+
+    </FrameLayout>
+
+    <TextView
+        style="@style/below_input_text_style"
+        android:layout_marginTop="16dp"
+        android:text="@string/amount" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/text_input_layout_style"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789 "
+            android:hint="@string/enter_amount"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="20" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        style="@style/below_input_text_style"
+        android:layout_marginTop="16dp"
+        android:text="@string/select_card" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/card_item" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/empty_list"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        android:foreground="@drawable/clickable_effect_add_card"
+        app:cardBackgroundColor="@color/black"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:id="@+id/add_card_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/add_circle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/start_with_adding_card"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="16dp"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/refresh"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        style="@style/below_input_text_style"
+        android:layout_marginTop="16dp"
+        android:text="@string/send_to" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/text_input_layout_style"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/card_number_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789 "
+            android:hint="@string/_0000_0000_0000_0000"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLength="19" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/error_message"
+        style="@style/below_input_text_style"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/error_red"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        android:visibility="gone"
+        tools:text="Error message." />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.leaf.mobilebanking.ui.customview.Button
+        android:id="@+id/send"
+        style="@style/tall_button_style"
+        app:isEnabled="true"
+        app:text="Send" />
+
+</LinearLayout>
