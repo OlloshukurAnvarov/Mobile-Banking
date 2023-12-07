@@ -22,8 +22,9 @@ class ConfirmViewModel @Inject constructor(
     private val settings: Settings
 ) :
     ViewModel() {
-    private val _openVerifyFlow = MutableSharedFlow<Unit>()
-    val openVerifyFlow: SharedFlow<Unit> = _openVerifyFlow
+
+    private val _successMessageFlow = MutableSharedFlow<Unit>()
+    val successMessageFlow: SharedFlow<Unit> = _successMessageFlow
 
     private val _errorFlow = MutableSharedFlow<Int>()
     val errorFlow: SharedFlow<Int> = _errorFlow
@@ -46,15 +47,6 @@ class ConfirmViewModel @Inject constructor(
         context.startService(Intent(context, MyService::class.java))
     }
 
-    fun resendSMS(context: Context) {
-        stopService(context)
-        viewModelScope.launch {
-            verifyUseCase.resend()
-            delay(2_000)
-            sendSMS(context)
-        }
-    }
-
     fun stopService(context: Context) {
         context.stopService(Intent(context, MyService::class.java))
     }
@@ -63,7 +55,7 @@ class ConfirmViewModel @Inject constructor(
         when (state) {
             is State.Error -> _errorFlow.emit(state.code)
             is State.NoNetwork -> _noNetworkFlow.emit(Unit)
-            is State.Success<*> -> _openVerifyFlow.emit(Unit)
+            is State.Success<*> -> _successMessageFlow.emit(Unit)
             is State.ErrorIO -> _errorIOFlow.emit(state.message)
         }
     }

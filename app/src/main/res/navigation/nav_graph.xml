@@ -166,6 +166,14 @@
             app:exitAnim="@drawable/slide_out_left"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_transferFragment_to_refactorCardFragment"
+            app:destination="@id/refactorCardFragment"
+            app:enterAnim="@drawable/slide_in_right"
+            app:exitAnim="@drawable/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/confirmFragment"
@@ -178,7 +186,8 @@
             app:enterAnim="@drawable/slide_in_right"
             app:exitAnim="@drawable/slide_out_left"
             app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
 
 </navigation>

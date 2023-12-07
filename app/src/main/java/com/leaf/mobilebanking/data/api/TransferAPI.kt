@@ -18,7 +18,7 @@ interface TransferAPI {
     suspend fun transferVerify(
         @Header("Authorization") bearerToken: String,
         @Body verify: Verify
-    ) : String
+    ) : Any?
 
     @POST("transfers/resend")
     suspend fun transferVerifyResend(

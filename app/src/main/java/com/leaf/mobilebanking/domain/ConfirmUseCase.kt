@@ -21,51 +21,20 @@ class ConfirmUseCase @Inject constructor(
     suspend operator fun invoke(token: String?, code: String): State {
         val bearerToken = settings.accessToken ?: return State.Error(-1)
         if (token.isNullOrEmpty() || code.isEmpty()) return State.Error(ErrorCodes.CODE_ERROR)
+        val btoken = "Bearer $bearerToken"
 
         try {
             val entity = Verify(token, code)
-            val btoken = "Bearer $bearerToken"
-            val response = repository.transferVerify(btoken, entity)
+            repository.transferVerify(btoken, entity)
 
         } catch (e: Exception) {
             e.printStackTrace()
             if (e is IOException) return State.NoNetwork
-            if (e is HttpException) {
-                val errorBody = e.response()?.errorBody()
-                if (errorBody != null) {
-                    try {
-                        val error = GsonBuilder().create()
-                            .fromJson(errorBody.charStream(), VerifyErrorBody::class.java)
-                        return State.ErrorIO(error.message)
-                    } catch (ee: Exception) {
-                        if (ee is IOException) return State.NoNetwork
-                        return State.Error(-1)
-                    }
-                }
-            }
+            if (e is HttpException) return State.Error(ErrorCodes.CODE_ERROR)
             return State.Error(-1)
         }
 
         return State.Success<Unit>()
-
-    }
-
-    suspend fun resend() {
-        val tempToken = settings.temporaryToken
-        val btoken = "Bearer ${settings.accessToken}"
-        if (tempToken.isNullOrEmpty()) return
-        try {
-            val entity = Token(tempToken)
-            val response = repository.transferVerifyResend(btoken, entity)
-
-            settings.apply {
-                temporaryToken = response.token
-                code = response.code
-            }
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
 
     }
 }

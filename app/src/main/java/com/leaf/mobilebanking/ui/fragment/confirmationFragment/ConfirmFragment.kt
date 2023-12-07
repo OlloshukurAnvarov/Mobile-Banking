@@ -30,17 +30,47 @@ class ConfirmFragment : Fragment(R.layout.fragment_confirm) {
 
         viewModel.sendSMS(requireContext())
 
+        binding.apply {
+
+            confirm.setOnClickListener {
+                if (!errorMessage.isEnabled)
+                    checking(0)
+                val code = verification.text.toString()
+                viewModel.verify(code)
+            }
+
+            back.setOnClickListener {
+                timer.cancel()
+                navController.popBackStack()
+            }
+
+        }
+
+        timer = object : CountDownTimer(60_000, 1_000) {
+            override fun onTick(p0: Long) {
+                updateCountdownText(p0)
+            }
+
+            override fun onFinish() {
+                checking(2)
+                binding.confirm.checking(false)
+            }
+
+        }.start()
+
         viewLifecycleOwner.lifecycleScope.launch {
 
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
 
                 launch {
-                    viewModel.openVerifyFlow.collect {
+                    viewModel.successMessageFlow.collect {
 
-                        navController.navigate(R.id.action_confirmFragment_to_successfulFragment, bundleOf(
-                            "transfer-index" to true,
-                            "info-index" to getString(R.string.successfully_transferred)
-                        ))
+                        navController.navigate(
+                            R.id.action_confirmFragment_to_successfulFragment, bundleOf(
+                                "transfer-index" to true,
+                                "info-index" to getString(R.string.successfully_transferred)
+                            )
+                        )
 
                     }
                 }
@@ -63,9 +93,12 @@ class ConfirmFragment : Fragment(R.layout.fragment_confirm) {
                 launch {
                     viewModel.errorIOFlow.collect { error ->
 
-                        Snackbar.make(binding.confirm.rootView, error, Snackbar.LENGTH_SHORT)
-                            .setAnchorView(binding.confirm)
-                            .setAction("Action", null).show()
+                        if (error.length > 40)
+                            navController.popBackStack()
+                        else
+                            Snackbar.make(binding.confirm.rootView, error, Snackbar.LENGTH_SHORT)
+                                .setAnchorView(binding.confirm)
+                                .setAction("Action", null).show()
 
                     }
                 }
@@ -84,35 +117,6 @@ class ConfirmFragment : Fragment(R.layout.fragment_confirm) {
 
             }
         }
-
-        binding.apply {
-
-
-            confirm.setOnClickListener {
-                if (!errorMessage.isEnabled)
-                    checking(0)
-                val code = verification.text.toString()
-                viewModel.verify(code)
-            }
-
-            back.setOnClickListener {
-                timer.cancel()
-                navController.popBackStack()
-            }
-
-        }
-
-        timer = object : CountDownTimer(120_000, 1_000) {
-            override fun onTick(p0: Long) {
-                updateCountdownText(p0)
-            }
-
-            override fun onFinish() {
-                checking(2)
-                binding.confirm.checking(false)
-            }
-
-        }.start()
 
     }
 
@@ -136,7 +140,7 @@ class ConfirmFragment : Fragment(R.layout.fragment_confirm) {
                     else -> {
                         errorMessage.isEnabled = true
                         errorMessage.setOnClickListener {
-                            viewModel.resendSMS(requireContext())
+                            navController.popBackStack()
                             timer.start()
                             checking(0)
                             confirm.checking(true)
@@ -150,17 +154,6 @@ class ConfirmFragment : Fragment(R.layout.fragment_confirm) {
                 }
             )
         }
-
-
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    timer.cancel()
-                    navController.popBackStack()
-                }
-
-            })
     }
 
     private fun updateCountdownText(millisUntilFinished: Long) {
