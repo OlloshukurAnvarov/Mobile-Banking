@@ -69,4 +69,5 @@
     <string name="to_proceed_with">To proceed with your transaction, please enter the confirmation code that has been sent to your phone.</string>
     <string name="confirmation_code">Confirmation code</string>
     <string name="successfully_transferred">Successfully transferred!</string>
+    <string name="history">History</string>
 </resources>

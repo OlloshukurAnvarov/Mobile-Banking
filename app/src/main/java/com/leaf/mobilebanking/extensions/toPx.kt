@@ -3,7 +3,6 @@ package com.leaf.mobilebanking.extensions
 import android.content.res.Resources
 import android.util.TypedValue
 import java.lang.StringBuilder
-import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 
 val Number.dp
@@ -49,7 +48,11 @@ fun String.getLastFour(): String = "**** " + this.drop(this.length - 4)
 
 fun validateDate(m: Int, y: Int): String = "$m/${y % 100}"
 
-fun String.toAmount(): String = "$ " + String.format("%.2f", this.toDouble()).toDouble().withSpace()
+fun String.toAmount(): String {
+    val v = this.replace(",", ".").removeRange(this.indexOf(".") + 3, this.length)
+    return "$ " + String.format("%.2f", v.toDouble().roundToLong().toDouble()).replace(",", ".").toDouble()
+        .withSpace()
+}
 
 fun Double.withSpace(): String {
     val s = StringBuilder()
@@ -63,5 +66,5 @@ fun Double.withSpace(): String {
                 s.append(" ")
             s.append(digit)
         }
-    return s.reversed().toString() + if (s.length <= 10) (f.toString().drop(1) + "0") else ""
+    return s.reversed().toString() + if (s.length <= 9) (f.toString().drop(1) + "0") else ""
 }

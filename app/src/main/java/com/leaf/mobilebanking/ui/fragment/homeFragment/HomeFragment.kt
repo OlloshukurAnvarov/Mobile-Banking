@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.leaf.mobilebanking.R
 import com.leaf.mobilebanking.databinding.FragmentHomeBinding
@@ -60,6 +61,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             settings.setOnClickListener {
                 navController.navigate(R.id.action_homeFragment_to_settingsFragment)
+            }
+
+            val bottomSheetBehavior = BottomSheetBehavior.from(standardBottomSheet)
+
+            // Set peek height (optional)
+            bottomSheetBehavior.peekHeight = 200
+
+            // Set up button click listener to show/hide bottom sheet
+            dragHandle.setOnClickListener {
+                if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                } else {
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                }
             }
 
         }
